@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مدونة طارق</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --success-color: #27ae60;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+        
+        .logo span {
+            color: var(--secondary-color);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--secondary-color);
+        }
+        
+        /* Main Content */
+        .main-content {
+            display: flex;
+            margin: 2rem 0;
+            gap: 2rem;
+        }
+        
+        .posts-container {
+            flex: 2;
+        }
+        
+        .sidebar {
+            flex: 1;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        /* Post Styles */
+        .post {
+            background: white;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .post-header {
+            padding: 1.5rem;
+        }
+        
+        .post-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+        
+        .post-meta {
+            color: #777;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .post-content {
+            padding: 0 1.5rem 1.5rem;
+        }
+        
+        .post-footer {
+            background: #f8f9fa;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .read-more {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        /* Sidebar Styles */
+        .sidebar-widget {
+            margin-bottom: 2rem;
+        }
+        
+        .sidebar-title {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--secondary-color);
+            color: var(--primary-color);
+        }
+        
+        .about-me {
+            text-align: center;
+        }
+        
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1rem;
+            border: 5px solid var(--secondary-color);
+        }
+        
+        .categories-list {
+            list-style: none;
+        }
+        
+        .categories-list li {
+            margin-bottom: 0.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .categories-list li a {
+            color: #333;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .categories-list li a:hover {
+            color: var(--secondary-color);
+        }
+        
+        /* Admin Panel */
+        .admin-panel {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+        }
+        
+        .admin-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        textarea.form-control {
+            min-height: 200px;
+            resize: vertical;
+        }
+        
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+        
+        .btn-primary {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #2980b9;
+        }
+        
+        .btn-danger {
+            background-color: var(--accent-color);
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background-color: #c0392b;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem 0;
+            margin-top: 2rem;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 200px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 1.5rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+                justify-content: center;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">مدونة <span>طارق</span></div>
+                <nav>
+                    <ul>
+                        <li><a href="https://tjd11.github.io/MY-portfilio/" class="active">الرئيسية</a></li>
+                        <li><a href="#">مقالاتي</a></li>
+                        <li><a href="#">عني</a></li>
+                        <li><a href="#">اتصل بي</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- لوحة التحكم للمدون -->
+        <section class="admin-panel" id="adminPanel">
+            <h2 class="admin-title">لوحة تحكم المدون</h2>
+            <form id="postForm">
+                <div class="form-group">
+                    <label for="postTitle">عنوان المقال</label>
+                    <input type="text" id="postTitle" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="postContent">محتوى المقال</label>
+                    <textarea id="postContent" class="form-control" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="postCategory">التصنيف</label>
+                    <input type="text" id="postCategory" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary">نشر المقال</button>
+            </form>
+        </section>
+
+        <!-- المحتوى الرئيسي -->
+        <div class="main-content">
+            <section class="posts-container" id="postsContainer">
+                <!-- سيتم عرض المقالات هنا ديناميكيًا -->
+                <article class="post">
+                    <div class="post-header">
+                        <h2 class="post-title">مرحبًا بك في مدونتي</h2>
+                        <div class="post-meta">نشر في: ١ يناير ٢٠٢٣ | التصنيف: ترحيب</div>
+                    </div>
+                    <div class="post-content">
+                        <p>مرحبًا بك في مدونتي المتواضعة. أنا طارق، مهندس تكنولوجيا المعلومات، وسأشارك هنا خبراتي وتجاربي في مجال التكنولوجيا.</p>
+                    </div>
+                    <div class="post-footer">
+                        <a href="#" class="read-more">قراءة المزيد</a>
+                        <div class="post-actions">
+                            <button class="btn btn-primary edit-btn">تعديل</button>
+                            <button class="btn btn-danger delete-btn">حذف</button>
+                        </div>
+                    </div>
+                </article>
+            </section>
+
+            <aside class="sidebar">
+                <div class="sidebar-widget about-me">
+                    <h3 class="sidebar-title">عن الكاتب</h3>
+                    <img src="https://via.placeholder.com/150" alt="طارق" class="profile-img">
+                    <p>مرحبًا، أنا طارق. أعمل كمهندس تكنولوجيا المعلومات وأحب مشاركة معرفتي مع الآخرين من خلال هذه المدونة.</p>
+                </div>
+
+                <div class="sidebar-widget">
+                    <h3 class="sidebar-title">التصنيفات</h3>
+                    <ul class="categories-list" id="categoriesList">
+                        <li><a href="#">شبكات</a></li>
+                        <li><a href="#">أمن المعلومات</a></li>
+                        <li><a href="#">برمجة</a></li>
+                        <li><a href="#">قواعد بيانات</a></li>
+                        <li><a href="#">أنظمة تشغيل</a></li>
+                    </ul>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>عن المدونة</h3>
+                    <p>مدونة تقنية تقدم محتوى مفيد في مجال تكنولوجيا المعلومات والبرمجة والشبكات.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>روابط سريعة</h3>
+                    <ul>
+                        <li><a href="https://tjd11.github.io/MY-portfilio/">الرئيسية</a></li>
+                        <li><a href="#">مقالاتي</a></li>
+                        <li><a href="#">عني</a></li>
+                        <li><a href="#">اتصل بي</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>اتصل بي</h3>
+                    <p>البريد الإلكتروني: tarek.jd20@gmail.com</p>
+                    <p>الهاتف: +963 952 585 934</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 مدونة طارق. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // تخزين المقالات في localStorage
+        let posts = JSON.parse(localStorage.getItem('blogPosts')) || [];
+        
+        // العناصر DOM
+        const postForm = document.getElementById('postForm');
+        const postsContainer = document.getElementById('postsContainer');
+        const categoriesList = document.getElementById('categoriesList');
+        
+        // دالة لعرض المقالات
+        function displayPosts() {
+            postsContainer.innerHTML = '';
+            
+            if (posts.length === 0) {
+                postsContainer.innerHTML = `
+                    <article class="post">
+                        <div class="post-header">
+                            <h2 class="post-title">لا توجد مقالات بعد</h2>
+                        </div>
+                        <div class="post-content">
+                            <p>استخدم لوحة التحكم لإضافة أول مقالة لك.</p>
+                        </div>
+                    </article>
+                `;
+                return;
+            }
+            
+            posts.forEach((post, index) => {
+                const postElement = document.createElement('article');
+                postElement.classList.add('post');
+                postElement.innerHTML = `
+                    <div class="post-header">
+                        <h2 class="post-title">${post.title}</h2>
+                        <div class="post-meta">نشر في: ${post.date} | التصنيف: ${post.category}</div>
+                    </div>
+                    <div class="post-content">
+                        <p>${post.content.substring(0, 150)}...</p>
+                    </div>
+                    <div class="post-footer">
+                        <a href="#" class="read-more">قراءة المزيد</a>
+                        <div class="post-actions">
+                            <button class="btn btn-primary edit-btn" data-index="${index}">تعديل</button>
+                            <button class="btn btn-danger delete-btn" data-index="${index}">حذف</button>
+                        </div>
+                    </div>
+                `;
+                postsContainer.appendChild(postElement);
+            });
+            
+            // إضافة مستمعي الأحداث لأزرار التعديل والحذف
+            document.querySelectorAll('.edit-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const index = e.target.getAttribute('data-index');
+                    editPost(index);
+                });
+            });
+            
+            document.querySelectorAll('.delete-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const index = e.target.getAttribute('data-index');
+                    deletePost(index);
+                });
+            });
+        }
+        
+        // دالة لإضافة مقال جديد
+        function addPost(event) {
+            event.preventDefault();
+            
+            const title = document.getElementById('postTitle').value;
+            const content = document.getElementById('postContent').value;
+            const category = document.getElementById('postCategory').value;
+            const date = new Date().toLocaleDateString('ar-EG');
+            
+            const newPost = {
+                title,
+                content,
+                category,
+                date
+            };
+            
+            posts.push(newPost);
+            localStorage.setItem('blogPosts', JSON.stringify(posts));
+            
+            // إعادة تعيين النموذج
+            postForm.reset();
+            
+            // تحديث العرض
+            displayPosts();
+            updateCategories();
+            
+            alert('تم نشر المقال بنجاح!');
+        }
+        
+        // دالة لتعديل مقال
+        function editPost(index) {
+            const post = posts[index];
+            
+            document.getElementById('postTitle').value = post.title;
+            document.getElementById('postContent').value = post.content;
+            document.getElementById('postCategory').value = post.category;
+            
+            // حذف المقال القديم
+            posts.splice(index, 1);
+            localStorage.setItem('blogPosts', JSON.stringify(posts));
+            
+            // تحديث العرض
+            displayPosts();
+            updateCategories();
+        }
+        
+        // دالة لحذف مقال
+        function deletePost(index) {
+            if (confirm('هل أنت متأكد من أنك تريد حذف هذا المقال؟')) {
+                posts.splice(index, 1);
+                localStorage.setItem('blogPosts', JSON.stringify(posts));
+                displayPosts();
+                updateCategories();
+            }
+        }
+        
+        // دالة لتحديث قائمة التصنيفات
+        function updateCategories() {
+            const categories = [...new Set(posts.map(post => post.category))];
+            
+            categoriesList.innerHTML = '';
+            
+            categories.forEach(category => {
+                const li = document.createElement('li');
+                li.innerHTML = `<a href="#">${category}</a>`;
+                categoriesList.appendChild(li);
+            });
+        }
+        
+        // إضافة مستمع الأحداث للنموذج
+        postForm.addEventListener('submit', addPost);
+        
+        // عرض المقالات عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', () => {
+            displayPosts();
+            updateCategories();
+        });
+    </script>
+</body>
+</html>
