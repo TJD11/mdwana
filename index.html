@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>مدونة طارق - مهندس تكنولوجيا المعلومات</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --primary-color: #2c3e50;
@@ -12,6 +13,7 @@
             --light-color: #ecf0f1;
             --dark-color: #2c3e50;
             --success-color: #27ae60;
+            --warning-color: #f39c12;
         }
         
         * {
@@ -111,6 +113,7 @@
         
         .post-header {
             padding: 1.5rem;
+            border-bottom: 1px solid #eee;
         }
         
         .post-title {
@@ -127,7 +130,7 @@
         }
         
         .post-content {
-            padding: 0 1.5rem 1.5rem;
+            padding: 1.5rem;
         }
         
         .post-footer {
@@ -136,6 +139,82 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .reactions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .reaction-btn {
+            background: white;
+            border: 1px solid #ddd;
+            padding: 5px 10px;
+            border-radius: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s;
+        }
+        
+        .reaction-btn:hover {
+            transform: scale(1.05);
+        }
+        
+        .reaction-btn.like:hover {
+            background-color: rgba(52, 152, 219, 0.1);
+            border-color: var(--secondary-color);
+            color: var(--secondary-color);
+        }
+        
+        .reaction-btn.good:hover {
+            background-color: rgba(46, 204, 113, 0.1);
+            border-color: var(--success-color);
+            color: var(--success-color);
+        }
+        
+        .reaction-btn.not-bad:hover {
+            background-color: rgba(241, 196, 15, 0.1);
+            border-color: var(--warning-color);
+            color: var(--warning-color);
+        }
+        
+        .reaction-btn.bad:hover {
+            background-color: rgba(231, 76, 60, 0.1);
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+        
+        .reaction-btn.active {
+            font-weight: bold;
+        }
+        
+        .reaction-btn.like.active {
+            background-color: rgba(52, 152, 219, 0.2);
+            border-color: var(--secondary-color);
+            color: var(--secondary-color);
+        }
+        
+        .reaction-btn.good.active {
+            background-color: rgba(46, 204, 113, 0.2);
+            border-color: var(--success-color);
+            color: var(--success-color);
+        }
+        
+        .reaction-btn.not-bad.active {
+            background-color: rgba(241, 196, 15, 0.2);
+            border-color: var(--warning-color);
+            color: var(--warning-color);
+        }
+        
+        .reaction-btn.bad.active {
+            background-color: rgba(231, 76, 60, 0.2);
+            border-color: var(--accent-color);
+            color: var(--accent-color);
         }
         
         .read-more {
@@ -145,50 +224,20 @@
             cursor: pointer;
         }
         
-        /* Sidebar Styles */
-        .sidebar-widget {
-            margin-bottom: 2rem;
+        /* Login Form */
+        .login-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin: 2rem auto;
+            max-width: 400px;
         }
         
-        .sidebar-title {
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid var(--secondary-color);
-            color: var(--primary-color);
-        }
-        
-        .about-me {
+        .login-title {
             text-align: center;
-        }
-        
-        .profile-img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin: 0 auto 1rem;
-            border: 5px solid var(--secondary-color);
-        }
-        
-        .categories-list {
-            list-style: none;
-        }
-        
-        .categories-list li {
-            margin-bottom: 0.5rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .categories-list li a {
-            color: #333;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        
-        .categories-list li a:hover {
-            color: var(--secondary-color);
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
         }
         
         /* Admin Panel */
@@ -254,6 +303,52 @@
         
         .btn-danger:hover {
             background-color: #c0392b;
+        }
+        
+        /* Sidebar Styles */
+        .sidebar-widget {
+            margin-bottom: 2rem;
+        }
+        
+        .sidebar-title {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--secondary-color);
+            color: var(--primary-color);
+        }
+        
+        .about-me {
+            text-align: center;
+        }
+        
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1rem;
+            border: 5px solid var(--secondary-color);
+        }
+        
+        .categories-list {
+            list-style: none;
+        }
+        
+        .categories-list li {
+            margin-bottom: 0.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .categories-list li a {
+            color: #333;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .categories-list li a:hover {
+            color: var(--secondary-color);
         }
         
         /* Modal for full post */
@@ -366,6 +461,14 @@
             .modal-title {
                 font-size: 1.5rem;
             }
+            
+            .post-footer {
+                flex-direction: column;
+            }
+            
+            .reactions {
+                justify-content: center;
+            }
         }
     </style>
 </head>
@@ -380,6 +483,7 @@
                         <li><a href="#">مقالاتي</a></li>
                         <li><a href="#">عني</a></li>
                         <li><a href="#">اتصل بي</a></li>
+                        <li><a href="#" id="logoutBtn" style="display: none;">تسجيل الخروج</a></li>
                     </ul>
                 </nav>
             </div>
@@ -387,8 +491,24 @@
     </header>
 
     <div class="container">
+        <!-- نموذج تسجيل الدخول -->
+        <div class="login-container" id="loginContainer">
+            <h2 class="login-title">تسجيل الدخول للمدونة</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">اسم المستخدم</label>
+                    <input type="text" id="username" class="form-control" required value="طارق">
+                </div>
+                <div class="form-group">
+                    <label for="password">كلمة المرور</label>
+                    <input type="password" id="password" class="form-control" required value="password">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">تسجيل الدخول</button>
+            </form>
+        </div>
+
         <!-- لوحة التحكم للمدون -->
-        <section class="admin-panel" id="adminPanel">
+        <section class="admin-panel" id="adminPanel" style="display: none;">
             <h2 class="admin-title">لوحة تحكم المدون</h2>
             <form id="postForm">
                 <div class="form-group">
@@ -428,9 +548,16 @@
                         <li><a href="#">برمجة</a></li>
                         <li><a href="#">قواعد بيانات</a></li>
                         <li><a href="#">أنظمة تشغيل</a></li>
-                        <li><a href="#"> شيء أخر</a></li>
-
+                        <li><a href="#">شيء أخر</a></li>
                     </ul>
+                </div>
+                
+                <div class="sidebar-widget">
+                    <h3 class="sidebar-title">إحصائيات المدونة</h3>
+                    <div id="blogStats">
+                        <p>عدد المقالات: <span id="postsCount">0</span></p>
+                        <p>إجمالي التفاعلات: <span id="totalReactions">0</span></p>
+                    </div>
                 </div>
             </aside>
         </div>
@@ -451,7 +578,7 @@
             <div class="footer-content">
                 <div class="footer-section">
                     <h3>عن المدونة</h3>
-                    <p>مدونة اكتبها  تقدم محتوى مفيد في عدة مجالات.</p>
+                    <p>مدونة اكتبها تقدم محتوى مفيد في عدة مجالات.</p>
                 </div>
                 <div class="footer-section">
                     <h3>روابط سريعة</h3>
@@ -475,24 +602,81 @@
     </footer>
 
     <script>
-        // تخزين المقالات في localStorage
-        let posts = JSON.parse(localStorage.getItem('blogPosts')) || [];
-        
+        // بيانات المدونة
+        const blogData = {
+            username: "طارق",
+            password: "password",
+            posts: JSON.parse(localStorage.getItem('blogPosts')) || [],
+            reactions: JSON.parse(localStorage.getItem('blogReactions')) || {}
+        };
+
         // العناصر DOM
-        const postForm = document.getElementById('postForm');
+        const loginContainer = document.getElementById('loginContainer');
+        const adminPanel = document.getElementById('adminPanel');
         const postsContainer = document.getElementById('postsContainer');
         const categoriesList = document.getElementById('categoriesList');
+        const postForm = document.getElementById('postForm');
+        const loginForm = document.getElementById('loginForm');
+        const logoutBtn = document.getElementById('logoutBtn');
         const postModal = document.getElementById('postModal');
         const modalTitle = document.getElementById('modalTitle');
         const modalMeta = document.getElementById('modalMeta');
         const modalBody = document.getElementById('modalBody');
         const closeModal = document.getElementById('closeModal');
-        
+        const postsCount = document.getElementById('postsCount');
+        const totalReactions = document.getElementById('totalReactions');
+
+        // التحقق من حالة تسجيل الدخول
+        function checkLoginStatus() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            if (isLoggedIn) {
+                showAdminPanel();
+            }
+            return isLoggedIn;
+        }
+
+        // تسجيل الدخول
+        function login(event) {
+            event.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            if (username === blogData.username && password === blogData.password) {
+                localStorage.setItem('isLoggedIn', 'true');
+                showAdminPanel();
+                alert('تم تسجيل الدخول بنجاح!');
+            } else {
+                alert('اسم المستخدم أو كلمة المرور غير صحيحة!');
+            }
+        }
+
+        // تسجيل الخروج
+        function logout() {
+            localStorage.setItem('isLoggedIn', 'false');
+            hideAdminPanel();
+            alert('تم تسجيل الخروج بنجاح!');
+        }
+
+        // إظهار لوحة التحكم
+        function showAdminPanel() {
+            loginContainer.style.display = 'none';
+            adminPanel.style.display = 'block';
+            logoutBtn.style.display = 'block';
+        }
+
+        // إخفاء لوحة التحكم
+        function hideAdminPanel() {
+            loginContainer.style.display = 'block';
+            adminPanel.style.display = 'none';
+            logoutBtn.style.display = 'none';
+        }
+
         // دالة لعرض المقالات
         function displayPosts() {
             postsContainer.innerHTML = '';
             
-            if (posts.length === 0) {
+            if (blogData.posts.length === 0) {
                 postsContainer.innerHTML = `
                     <article class="post">
                         <div class="post-header">
@@ -506,7 +690,7 @@
                 return;
             }
             
-            posts.forEach((post, index) => {
+            blogData.posts.forEach((post, index) => {
                 const postElement = document.createElement('article');
                 postElement.classList.add('post');
                 postElement.innerHTML = `
@@ -518,28 +702,35 @@
                         <p>${post.content.substring(0, 150)}...</p>
                     </div>
                     <div class="post-footer">
-                        <span class="read-more" data-index="${index}">قراءة المزيد</span>
-                        <div class="post-actions">
-                            <button class="btn btn-primary edit-btn" data-index="${index}">تعديل</button>
-                            <button class="btn btn-danger delete-btn" data-index="${index}">حذف</button>
+                        <div class="reactions">
+                            <button class="reaction-btn like" data-index="${index}" data-reaction="like">
+                                <i class="fas fa-thumbs-up"></i> أعجبني (<span class="count">${post.reactions?.like || 0}</span>)
+                            </button>
+                            <button class="reaction-btn good" data-index="${index}" data-reaction="good">
+                                <i class="fas fa-smile"></i> جيد (<span class="count">${post.reactions?.good || 0}</span>)
+                            </button>
+                            <button class="reaction-btn not-bad" data-index="${index}" data-reaction="not_bad">
+                                <i class="fas fa-meh"></i> ليس سيئاً (<span class="count">${post.reactions?.not_bad || 0}</span>)
+                            </button>
+                            <button class="reaction-btn bad" data-index="${index}" data-reaction="bad">
+                                <i class="fas fa-frown"></i> سيء (<span class="count">${post.reactions?.bad || 0}</span>)
+                            </button>
                         </div>
+                        <span class="read-more" data-index="${index}">قراءة المزيد</span>
                     </div>
                 `;
                 postsContainer.appendChild(postElement);
             });
             
-            // إضافة مستمعي الأحداث لأزرار التعديل والحذف
-            document.querySelectorAll('.edit-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const index = e.target.getAttribute('data-index');
-                    editPost(index);
-                });
-            });
+            // تحديث الإحصائيات
+            updateStats();
             
-            document.querySelectorAll('.delete-btn').forEach(btn => {
+            // إضافة مستمعي الأحداث للتفاعلات
+            document.querySelectorAll('.reaction-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
-                    const index = e.target.getAttribute('data-index');
-                    deletePost(index);
+                    const index = e.target.closest('.reaction-btn').getAttribute('data-index');
+                    const reaction = e.target.closest('.reaction-btn').getAttribute('data-reaction');
+                    addReaction(index, reaction);
                 });
             });
             
@@ -558,10 +749,44 @@
                 });
             });
         }
-        
+
+        // دالة لإضافة تفاعل
+        function addReaction(postIndex, reactionType) {
+            if (!blogData.posts[postIndex].reactions) {
+                blogData.posts[postIndex].reactions = {
+                    like: 0,
+                    good: 0,
+                    not_bad: 0,
+                    bad: 0
+                };
+            }
+            
+            blogData.posts[postIndex].reactions[reactionType]++;
+            
+            // حفظ في localStorage
+            localStorage.setItem('blogPosts', JSON.stringify(blogData.posts));
+            
+            // تحديث العرض
+            displayPosts();
+        }
+
+        // دالة لتحديث الإحصائيات
+        function updateStats() {
+            postsCount.textContent = blogData.posts.length;
+            
+            let total = 0;
+            blogData.posts.forEach(post => {
+                if (post.reactions) {
+                    total += post.reactions.like + post.reactions.good + post.reactions.not_bad + post.reactions.bad;
+                }
+            });
+            
+            totalReactions.textContent = total;
+        }
+
         // دالة لعرض المقال الكامل
         function showFullPost(index) {
-            const post = posts[index];
+            const post = blogData.posts[index];
             modalTitle.textContent = post.title;
             modalMeta.innerHTML = `نشر في: ${post.date} | التصنيف: ${post.category}`;
             modalBody.textContent = post.content;
@@ -579,7 +804,7 @@
                 postModal.style.display = 'none';
             }
         });
-        
+
         // دالة لإضافة مقال جديد
         function addPost(event) {
             event.preventDefault();
@@ -593,11 +818,17 @@
                 title,
                 content,
                 category,
-                date
+                date,
+                reactions: {
+                    like: 0,
+                    good: 0,
+                    not_bad: 0,
+                    bad: 0
+                }
             };
             
-            posts.push(newPost);
-            localStorage.setItem('blogPosts', JSON.stringify(posts));
+            blogData.posts.push(newPost);
+            localStorage.setItem('blogPosts', JSON.stringify(blogData.posts));
             
             // إعادة تعيين النموذج
             postForm.reset();
@@ -609,36 +840,9 @@
             alert('تم نشر المقال بنجاح!');
         }
         
-        // دالة لتعديل مقال
-        function editPost(index) {
-            const post = posts[index];
-            
-            document.getElementById('postTitle').value = post.title;
-            document.getElementById('postContent').value = post.content;
-            document.getElementById('postCategory').value = post.category;
-            
-            // حذف المقال القديم
-            posts.splice(index, 1);
-            localStorage.setItem('blogPosts', JSON.stringify(posts));
-            
-            // تحديث العرض
-            displayPosts();
-            updateCategories();
-        }
-        
-        // دالة لحذف مقال
-        function deletePost(index) {
-            if (confirm('هل أنت متأكد من أنك تريد حذف هذا المقال؟')) {
-                posts.splice(index, 1);
-                localStorage.setItem('blogPosts', JSON.stringify(posts));
-                displayPosts();
-                updateCategories();
-            }
-        }
-        
         // دالة لتحديث قائمة التصنيفات
         function updateCategories() {
-            const categories = [...new Set(posts.map(post => post.category))];
+            const categories = [...new Set(blogData.posts.map(post => post.category))];
             
             categoriesList.innerHTML = '';
             
@@ -649,7 +853,7 @@
             });
             
             // إضافة التصنيفات الافتراضية إذا لم تكن موجودة
-            const defaultCategories = ['شبكات', 'أمن المعلومات', 'برمجة', 'قواعد بيانات', 'أنظمة تشغيل' , 'سياسة' , ' معلومات عامة' , 'شيءأخر'];
+            const defaultCategories = ['شبكات', 'أمن المعلومات', 'برمجة', 'قواعد بيانات', 'أنظمة تشغيل', 'سياسة', 'معلومات عامة', 'شيء أخر'];
             defaultCategories.forEach(category => {
                 if (!categories.includes(category)) {
                     const li = document.createElement('li');
@@ -659,11 +863,14 @@
             });
         }
         
-        // إضافة مستمع الأحداث للنموذج
+        // إضافة مستمعي الأحداث
         postForm.addEventListener('submit', addPost);
+        loginForm.addEventListener('submit', login);
+        logoutBtn.addEventListener('click', logout);
         
-        // عرض المقالات عند تحميل الصفحة
+        // تهيئة المدونة عند تحميل الصفحة
         document.addEventListener('DOMContentLoaded', () => {
+            checkLoginStatus();
             displayPosts();
             updateCategories();
         });
