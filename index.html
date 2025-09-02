@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مدونة طارق</title>
+    <title>مدونة طارق - مهندس تكنولوجيا المعلومات</title>
     <style>
         :root {
             --primary-color: #2c3e50;
@@ -102,6 +102,11 @@
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+        
+        .post:hover {
+            transform: translateY(-5px);
         }
         
         .post-header {
@@ -112,6 +117,7 @@
             font-size: 1.5rem;
             margin-bottom: 0.5rem;
             color: var(--primary-color);
+            cursor: pointer;
         }
         
         .post-meta {
@@ -136,6 +142,7 @@
             color: var(--secondary-color);
             text-decoration: none;
             font-weight: bold;
+            cursor: pointer;
         }
         
         /* Sidebar Styles */
@@ -249,6 +256,56 @@
             background-color: #c0392b;
         }
         
+        /* Modal for full post */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 2rem auto;
+            padding: 2rem;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 800px;
+            position: relative;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #777;
+        }
+        
+        .modal-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+            text-align: center;
+        }
+        
+        .modal-meta {
+            text-align: center;
+            color: #777;
+            margin-bottom: 2rem;
+        }
+        
+        .modal-body {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
         /* Footer */
         footer {
             background-color: var(--primary-color);
@@ -300,6 +357,15 @@
             .footer-content {
                 flex-direction: column;
             }
+            
+            .modal-content {
+                width: 95%;
+                padding: 1rem;
+            }
+            
+            .modal-title {
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
@@ -345,29 +411,13 @@
         <div class="main-content">
             <section class="posts-container" id="postsContainer">
                 <!-- سيتم عرض المقالات هنا ديناميكيًا -->
-                <article class="post">
-                    <div class="post-header">
-                        <h2 class="post-title">مرحبًا بك في مدونتي</h2>
-                        <div class="post-meta">نشر في: ١ يناير ٢٠٢٣ | التصنيف: ترحيب</div>
-                    </div>
-                    <div class="post-content">
-                        <p>مرحبًا بك في مدونتي المتواضعة. أنا طارق، مهندس تكنولوجيا المعلومات، وسأشارك هنا خبراتي وتجاربي في مجال التكنولوجيا.</p>
-                    </div>
-                    <div class="post-footer">
-                        <a href="#" class="read-more">قراءة المزيد</a>
-                        <div class="post-actions">
-                            <button class="btn btn-primary edit-btn">تعديل</button>
-                            <button class="btn btn-danger delete-btn">حذف</button>
-                        </div>
-                    </div>
-                </article>
             </section>
 
             <aside class="sidebar">
                 <div class="sidebar-widget about-me">
                     <h3 class="sidebar-title">عن الكاتب</h3>
                     <img src="https://via.placeholder.com/150" alt="طارق" class="profile-img">
-                    <p>مرحبًا، أنا طارق. أعمل كمهندس تكنولوجيا المعلومات وأحب مشاركة معرفتي مع الآخرين من خلال هذه المدونة.</p>
+                    <p>مرحبًا، أنا طارق. مهندس في تكنولوجيا المعلومات وأحب مشاركة معرفتي وأفكاري مع الآخرين من خلال هذه المدونة.</p>
                 </div>
 
                 <div class="sidebar-widget">
@@ -378,9 +428,21 @@
                         <li><a href="#">برمجة</a></li>
                         <li><a href="#">قواعد بيانات</a></li>
                         <li><a href="#">أنظمة تشغيل</a></li>
+                        <li><a href="#"> شيء أخر</a></li>
+
                     </ul>
                 </div>
             </aside>
+        </div>
+    </div>
+
+    <!-- نافذة عرض المقال الكامل -->
+    <div class="modal" id="postModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeModal">&times;</span>
+            <h2 class="modal-title" id="modalTitle"></h2>
+            <div class="modal-meta" id="modalMeta"></div>
+            <div class="modal-body" id="modalBody"></div>
         </div>
     </div>
 
@@ -389,7 +451,7 @@
             <div class="footer-content">
                 <div class="footer-section">
                     <h3>عن المدونة</h3>
-                    <p>مدونة تقنية تقدم محتوى مفيد في مجال تكنولوجيا المعلومات والبرمجة والشبكات.</p>
+                    <p>مدونة اكتبها  تقدم محتوى مفيد في عدة مجالات.</p>
                 </div>
                 <div class="footer-section">
                     <h3>روابط سريعة</h3>
@@ -420,6 +482,11 @@
         const postForm = document.getElementById('postForm');
         const postsContainer = document.getElementById('postsContainer');
         const categoriesList = document.getElementById('categoriesList');
+        const postModal = document.getElementById('postModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalMeta = document.getElementById('modalMeta');
+        const modalBody = document.getElementById('modalBody');
+        const closeModal = document.getElementById('closeModal');
         
         // دالة لعرض المقالات
         function displayPosts() {
@@ -444,14 +511,14 @@
                 postElement.classList.add('post');
                 postElement.innerHTML = `
                     <div class="post-header">
-                        <h2 class="post-title">${post.title}</h2>
+                        <h2 class="post-title" data-index="${index}">${post.title}</h2>
                         <div class="post-meta">نشر في: ${post.date} | التصنيف: ${post.category}</div>
                     </div>
                     <div class="post-content">
                         <p>${post.content.substring(0, 150)}...</p>
                     </div>
                     <div class="post-footer">
-                        <a href="#" class="read-more">قراءة المزيد</a>
+                        <span class="read-more" data-index="${index}">قراءة المزيد</span>
                         <div class="post-actions">
                             <button class="btn btn-primary edit-btn" data-index="${index}">تعديل</button>
                             <button class="btn btn-danger delete-btn" data-index="${index}">حذف</button>
@@ -475,7 +542,43 @@
                     deletePost(index);
                 });
             });
+            
+            // إضافة مستمعي الأحداث لعرض المقال الكامل
+            document.querySelectorAll('.read-more').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const index = e.target.getAttribute('data-index');
+                    showFullPost(index);
+                });
+            });
+            
+            document.querySelectorAll('.post-title').forEach(title => {
+                title.addEventListener('click', (e) => {
+                    const index = e.target.getAttribute('data-index');
+                    showFullPost(index);
+                });
+            });
         }
+        
+        // دالة لعرض المقال الكامل
+        function showFullPost(index) {
+            const post = posts[index];
+            modalTitle.textContent = post.title;
+            modalMeta.innerHTML = `نشر في: ${post.date} | التصنيف: ${post.category}`;
+            modalBody.textContent = post.content;
+            postModal.style.display = 'block';
+        }
+        
+        // إغلاق النافذة المنبثقة
+        closeModal.addEventListener('click', () => {
+            postModal.style.display = 'none';
+        });
+        
+        // إغلاق النافذة عند النقر خارجها
+        window.addEventListener('click', (e) => {
+            if (e.target === postModal) {
+                postModal.style.display = 'none';
+            }
+        });
         
         // دالة لإضافة مقال جديد
         function addPost(event) {
@@ -543,6 +646,16 @@
                 const li = document.createElement('li');
                 li.innerHTML = `<a href="#">${category}</a>`;
                 categoriesList.appendChild(li);
+            });
+            
+            // إضافة التصنيفات الافتراضية إذا لم تكن موجودة
+            const defaultCategories = ['شبكات', 'أمن المعلومات', 'برمجة', 'قواعد بيانات', 'أنظمة تشغيل' , 'سياسة' , ' معلومات عامة' , 'شيءأخر'];
+            defaultCategories.forEach(category => {
+                if (!categories.includes(category)) {
+                    const li = document.createElement('li');
+                    li.innerHTML = `<a href="#">${category}</a>`;
+                    categoriesList.appendChild(li);
+                }
             });
         }
         
